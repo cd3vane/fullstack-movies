@@ -37,7 +37,7 @@ function Discover() {
     return (
       <div className="container">
         <div className="header">
-          <h1>
+          <h1 className="text-3xl font-bold">
             <button
               className="header-btn"
               onClick={() => switchCategory(Category.tv)}
@@ -76,7 +76,7 @@ function Discover() {
         </div>
 
         {shows ? (
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-5 gap-4">
             {shows.map((show) => (
               <div key={show.id}>
                 <MovieCard show={show} />

@@ -30,60 +30,57 @@ const Register = () => {
   // }
 
   return (
-    <>
-      <h1 className="large text-primary">Sign Up</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Create Your Account
-      </p>
-      <form className="form" onSubmit={(e) => onSubmit(e)}>
-        <div className="form-group">
+    <div className="flex min-h-screen flex-col">
+      <div className="container mx-auto flex max-w-sm flex-1 flex-col items-center justify-center px-2">
+        <div className="w-full rounded bg-slate-800 px-6 py-8 text-black shadow-md">
+          <h1 className="mb-8 text-center text-3xl">Sign up</h1>
           <input
             type="text"
-            placeholder="Username"
-            name="username"
-            value={username}
-            onChange={(e) => onChange(e)}
-            required
+            className="border-grey-light mb-4 block w-full rounded border p-3"
+            name="fullname"
+            placeholder="Full Name"
           />
-        </div>
-        <div className="form-group">
+
           <input
-            type="email"
-            placeholder="Email Address"
+            type="text"
+            className="border-grey-light mb-4 block w-full rounded border p-3"
             name="email"
-            value={email}
-            onChange={(e) => onChange(e)}
-            required
+            placeholder="Email"
           />
-          <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
-        </div>
-        <div className="form-group">
+
           <input
             type="password"
-            placeholder="Password"
+            className="border-grey-light mb-4 block w-full rounded border p-3"
             name="password"
-            value={password}
-            onChange={(e) => onChange(e)}
+            placeholder="Password"
           />
-        </div>
-        <div className="form-group">
           <input
             type="password"
+            className="border-grey-light mb-4 block w-full rounded border p-3"
+            name="confirm_password"
             placeholder="Confirm Password"
-            name="password2"
-            value={password2}
-            onChange={(e) => onChange(e)}
           />
+
+          <button
+            type="submit"
+            className="bg-green hover:bg-green-dark my-1 w-full rounded py-3 text-center text-white focus:outline-none"
+          >
+            Create Account
+          </button>
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
-      </form>
-      <p className="my-1">
-        Already have an account? <Link to="/">Login</Link>
-      </p>
-    </>
+
+        <div className="mt-6 text-slate-50">
+          Already have an account?{" "}
+          <a
+            className="border-blue text-blue border-b no-underline"
+            href="/login/"
+          >
+            Log in
+          </a>
+          .
+        </div>
+      </div>
+    </div>
   );
 };
 

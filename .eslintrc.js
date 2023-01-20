@@ -5,11 +5,7 @@ module.exports = {
     jest: true,
     node: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
-  ],
+  extends: ["plugin:prettier/recommended"],
 
   overrides: [],
   parserOptions: {

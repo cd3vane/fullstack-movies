@@ -29,7 +29,6 @@
     "format": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|css|md)\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "cypress:open": "npx cypress open",
     "typecheck": "tsc -b && tsc -b cypress"
   },
