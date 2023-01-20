@@ -9,12 +9,18 @@ const Login = () => {
 
   const { email, password } = formData;
 
+  const fakeLogin = (attemptEmail: string, attemptPass: string) => {
+    if (attemptEmail == "test@gmail.com" && attemptPass == "test1234") {
+      console.log("Successful login");
+    }
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // actual login function
+    fakeLogin(email, password);
   };
 
   // if (isAuthenticated) {
