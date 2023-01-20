@@ -1,57 +1,55 @@
-import React, { useState } from 'react';
-import { Link, redirect } from 'react-router-dom';
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const isAuthenticated = false
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
   const { email, password } = formData;
 
-  const onChange = (e : React.ChangeEvent<HTMLInputElement>) =>
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e : React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // actual login function
   };
 
-  if (isAuthenticated) {
-    return redirect("/account/dashboard");
-  }
+  // if (isAuthenticated) {
+  //   return redirect("/account/dashboard");
+  // }
 
   return (
     <div>
-      <p className='lead'>
-        <i className='fas fa-user'></i> Sign into Your Account
+      <p className="lead">
+        <i className="fas fa-user"></i> Sign into Your Account
       </p>
-      <form className='form' onSubmit={(e) => onSubmit(e)}>
-        <div className='form-group'>
+      <form className="form" onSubmit={(e) => onSubmit(e)}>
+        <div className="form-group">
           <input
-            type='email'
-            placeholder='Email Address'
-            name='email'
+            type="email"
+            placeholder="Email Address"
+            name="email"
             value={email}
             onChange={(e) => onChange(e)}
             required
           />
         </div>
-        <div className='form-group'>
+        <div className="form-group">
           <input
-            type='password'
-            placeholder='Password'
-            name='password'
+            type="password"
+            placeholder="Password"
+            name="password"
             value={password}
             onChange={(e) => onChange(e)}
           />
         </div>
-        <input type='submit' className='btn btn-primary' value='Login' />
+        <input type="submit" className="btn btn-primary" value="Login" />
       </form>
-      <p className='my-1'>
-        Don't have an account? <Link to='/register'>Sign Up</Link>
+      <p className="my-1">
+        Don&apos;t have an account? <Link to="/register">Sign Up</Link>
       </p>
     </div>
   );
