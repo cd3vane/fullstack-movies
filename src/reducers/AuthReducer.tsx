@@ -11,7 +11,10 @@ export type AuthState = {
   userDetails: string;
   token: string;
   loading: boolean;
+  isAuthenticated: boolean;
   errorMessage: string;
+  login: any;
+  logout: any;
 };
 
 type ReducerAction =
@@ -24,8 +27,12 @@ export const initialState: AuthState = {
   userDetails: "" || user,
   token: "" || token,
   loading: false,
+  isAuthenticated: false,
   errorMessage: "",
+  login: () => {},
+  logout: () => {},
 };
+
 export const AuthReducer = (initialState: AuthState, action: ReducerAction) => {
   switch (action.type) {
     case "REQUEST_LOGIN":
@@ -36,8 +43,7 @@ export const AuthReducer = (initialState: AuthState, action: ReducerAction) => {
     case "LOGIN_SUCCESS":
       return {
         ...initialState,
-        user: action.payload.user,
-        token: action.payload.auth_token,
+        token: action.payload.token,
         loading: false,
       };
     case "LOGOUT":

@@ -1,23 +1,27 @@
 import { createContext, useEffect, useReducer } from "react";
 import { AuthState, AuthReducer, initialState } from "../reducers/AuthReducer";
-import { Credentials } from "../types";
+import { api } from "../utils/api";
 
 export const AuthContext = createContext<AuthState>(initialState);
+
 export const AuthProvider = (props: any) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
   useEffect(() => {
-    console.log("effects");
-  }, []);
+    localStorage.setItem("token", JSON.stringify(state.token));
+  }, [state]);
 
-  const login = (loginPayload: Credentials) => {
+  const login = async (email: string, password: string) => {
+    const loginPayload = { email, password };
     dispatch({ type: "REQUEST_LOGIN", payload: loginPayload });
-    if (loginPayload.email.includes("@") && loginPayload.password.length > 8) {
-      dispatch({ type: "LOGIN_SUCCESS", payload: loginPayload });
-    } else {
+    try {
+      const res = await api.post("/auth", loginPayload);
+      console.log(res.data);
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+    } catch (err: any) {
       dispatch({
         type: "LOGIN_ERROR",
-        error: "There was an error logging you in",
+        error: err.response.data.errors,
       });
     }
   };
@@ -32,7 +36,10 @@ export const AuthProvider = (props: any) => {
         userDetails: state.userDetails,
         token: state.token,
         loading: false,
+        isAuthenticated: state.token ? true : false,
         errorMessage: "",
+        login: login,
+        logout: logout,
       }}
     >
       {props.children}

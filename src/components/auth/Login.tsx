@@ -1,32 +1,32 @@
-import React, { useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { Credentials } from "../../types";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<Credentials>({
     email: "",
     password: "",
   });
+  const { login, isAuthenticated } = useContext(AuthContext);
 
-  const fakeLogin = (attemptEmail: string, attemptPass: string) => {
-    if (attemptEmail === "test@gmail.com" && attemptPass === "test1234") {
-      console.log("Successful login");
-      localStorage.setItem("token", "thisisatesttokenforfunctionality");
-      redirect("/account/dashboard");
-    } else {
-      console.log("wrong stuff boi");
-    }
-  };
+  const { email, password } = formData;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fakeLogin(formData.email, formData.password);
+    login(email, password);
   };
-  // if (isAuthenticated) {
-  //   return redirect("/account/dashboard");
-  // }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log("checking auth");
+      navigate("/account/dashboard");
+    }
+  }, [isAuthenticated]);
 
   return (
     <form onSubmit={(e) => onSubmit(e)} className="form">
@@ -38,7 +38,7 @@ const Login = () => {
           type="email"
           id="email"
           name="email"
-          value={formData.email}
+          value={email}
           onChange={(e) => onChange(e)}
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder="name@flowbite.com"
@@ -53,7 +53,7 @@ const Login = () => {
           data-popover-target="popover-password"
           data-popover-placement="bottom"
           name="password"
-          value={formData.password}
+          value={password}
           onChange={(e) => onChange(e)}
           type="password"
           id="password"

@@ -1,8 +1,7 @@
-describe('Login functionality', () => {
-    it('takes user input', () => {
-        cy.visit('/login')
-        cy.get('#email').type('test@gmail.com')
-        cy.get('#password').type('test1234')
-        cy.get('#login-btn').click()
-    });
+describe("Login functionality", () => {
+  it.only("logs in user and redirects to dashboard", () => {
+    cy.login()
+    cy.url().should('include', '/account/dashboard')
+    cy.get('h1').should('include.text', 'signed in version')
+  });
 });
