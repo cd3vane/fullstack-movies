@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -7,11 +7,13 @@ const Login = () => {
     password: "",
   });
 
-  const { email, password } = formData;
-
   const fakeLogin = (attemptEmail: string, attemptPass: string) => {
-    if (attemptEmail == "test@gmail.com" && attemptPass == "test1234") {
+    if (attemptEmail === "test@gmail.com" && attemptPass === "test1234") {
       console.log("Successful login");
+      localStorage.setItem("token", "thisisatesttokenforfunctionality");
+      redirect("/account/dashboard");
+    } else {
+      console.log("wrong stuff boi");
     }
   };
 
@@ -20,14 +22,14 @@ const Login = () => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fakeLogin(email, password);
+    fakeLogin(formData.email, formData.password);
   };
   // if (isAuthenticated) {
   //   return redirect("/account/dashboard");
   // }
 
   return (
-    <form className="">
+    <form onSubmit={(e) => onSubmit(e)} className="form">
       <div className="mb-6">
         <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
           Your email
@@ -35,6 +37,9 @@ const Login = () => {
         <input
           type="email"
           id="email"
+          name="email"
+          value={formData.email}
+          onChange={(e) => onChange(e)}
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder="name@flowbite.com"
           required
@@ -47,6 +52,9 @@ const Login = () => {
         <input
           data-popover-target="popover-password"
           data-popover-placement="bottom"
+          name="password"
+          value={formData.password}
+          onChange={(e) => onChange(e)}
           type="password"
           id="password"
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -130,7 +138,6 @@ const Login = () => {
             type="checkbox"
             value=""
             className="focus:ring-3 h-4 w-4 rounded border border-gray-300 bg-gray-50 focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
-            required
           />
         </div>
         <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -139,6 +146,7 @@ const Login = () => {
       </div>
       <button
         type="submit"
+        id="login-btn"
         className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
       >
         Submit
