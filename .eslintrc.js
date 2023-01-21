@@ -5,7 +5,7 @@ module.exports = {
     jest: true,
     node: true,
   },
-  extends: [".prettierrc"],
+  extends: ["prettier"],
 
   overrides: [],
   parserOptions: {
